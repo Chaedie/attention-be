@@ -1,4 +1,4 @@
-const { getAllTodos } = require("./todo.dao");
+const { getAllTodos, createTodo, updateTodo, deleteTodo } = require("./todo.dao");
 
 class TodoService {
   async getTodos(page) {
@@ -7,6 +7,24 @@ class TodoService {
 
     const todos = await getAllTodos(offset, pageSize);
     return todos;
+  }
+
+  async createTodo(todo) {
+    const todoItem = await createTodo(todo);
+
+    return todoItem;
+  }
+
+  async updateTodo(todo) {
+    const todoItem = await updateTodo(todo);
+
+    return todoItem;
+  }
+
+  async deleteTodo(todo) {
+    const todoItem = await deleteTodo(todo);
+
+    return todoItem;
   }
 }
 

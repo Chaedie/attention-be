@@ -25,7 +25,7 @@ exports.createTodo = async todo => {
 
   const { rows } = await client.query(query, values);
 
-  return rows;
+  return rows[0];
 };
 
 exports.updateTodo = async (id, todo, isCompleted) => {
@@ -40,7 +40,7 @@ exports.updateTodo = async (id, todo, isCompleted) => {
 
   const { rows } = await client.query(query, values);
 
-  return rows;
+  return rows[0];
 };
 
 exports.deleteTodo = async id => {
@@ -53,5 +53,5 @@ exports.deleteTodo = async id => {
 
   const { rows } = await client.query(query, values);
 
-  return rows;
+  return rows[0];
 };
