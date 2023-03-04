@@ -1,10 +1,15 @@
-exports.getTodos = (req, res, next) => {
-  console.log(req);
-  res.json([{ id: 1, todo: "겟 투두 성공", isCompleted: false }]);
+const { getAllTodos, createTodo } = require("./todo.dao");
+
+exports.getTodos = async (req, res, next) => {
+  const todos = await getAllTodos();
+  console.log(todos);
+  res.json(todos);
 };
 
-exports.createTodos = (req, res, next) => {
-  res.send("createTodos");
+exports.createTodo = async (req, res, next) => {
+  const todo = await createTodo(req.body.todo);
+
+  res.status(201).json(todo);
 };
 
 exports.updateTodos = (req, res, next) => {
