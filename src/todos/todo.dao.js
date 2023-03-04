@@ -1,13 +1,16 @@
 const client = require("../../config/db");
 
-exports.getAllTodos = async () => {
+exports.getAllTodos = async (offset, pageSize) => {
+  const values = [offset, pageSize];
   const query = `
     SELECT *
-    FROM todos;
+    FROM todos
+    OFFSET $1
+    LIMIT $2;
   `;
 
-  const { rows } = await client.query(query);
-
+  const { rows } = await client.query(query, values);
+  console.log(rows);
   return rows;
 };
 

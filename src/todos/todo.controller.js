@@ -1,9 +1,13 @@
 const { getAllTodos, createTodo, updateTodo, deleteTodo } = require("./todo.dao");
+const TodoService = require("./todo.service");
+const todoService = new TodoService();
 
 exports.getTodos = async (req, res, next) => {
-  const todos = await getAllTodos();
+  const { page } = req.query;
 
-  res.json(todos);
+  const todos = await todoService.getTodos(page);
+
+  res.status(200).json(todos);
 };
 
 exports.createTodo = async (req, res, next) => {
