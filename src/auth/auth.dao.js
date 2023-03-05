@@ -26,6 +26,19 @@ class AuthDao {
 
     return rows;
   }
+
+  async signinUser(email, password) {
+    const values = [email, password];
+    const query = `
+    SELECT email
+    FROM users
+    WHERE email = $1 and password = $2
+    `;
+
+    const { rows } = await client.query(query, values);
+
+    return rows;
+  }
 }
 
 module.exports = AuthDao;
