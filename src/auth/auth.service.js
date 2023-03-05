@@ -1,4 +1,5 @@
 const AuthDao = require("./auth.dao");
+const bcrypt = require("bcrypt");
 
 const authDao = new AuthDao();
 class AuthService {
@@ -9,22 +10,26 @@ class AuthService {
   }
 
   async postSignup(email, password) {
-    if (this.isExistUser(email)) {
+    if (await this.isExistUser(email)) {
       throw new Error("이미 존재하는 이메일입니다.");
     }
 
-    await authDao.createUser(email, password);
-    return;
+    const hash = await bcrypt.hash(password, 10);
+
+    await authDao.createUser(email, hash);
+    await authDao.createSession(email, sessionId);
   }
 
   async postSignin(email, password, sessionId) {
-    if (!this.isExistUser(email)) {
+    if (await !this.isExistUser(email)) {
       throw new Error("없는 이메일입니다.");
     }
 
-    const user = await authDao.signinUser(email, password);
-    if (user.length === 0) {
-      throw new Error("유저 정보가 일치하지 않습니다.");
+    const hash = await bcrypt.hash(password, 10);
+    const match = await bcrypt.compare(password, hash);
+
+    if (!match) {
+      throw new Error("이메일 패스워드 정보를 확인하세요");
     }
 
     await authDao.createSession(email, sessionId);
