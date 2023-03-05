@@ -35,32 +35,30 @@ src
 
 # 개발 일지
 
-- 1차 마일스톤
-> - [x] Front 코드 기반으로 Todo CRUD 구현
-> - [] todos pagination 추가
-> - [] Local Strategy Auth 구현
-> - [] 카카오 Auth 구현
-> - [] TypeScript 마이그레이션
+## 1차 마일스톤
+- CRUD
+  - [x] Front 코드 기반으로 Todo CRUD 구현
+  - [x] todos pagination 추가
+  - [x] user table 추가, CR 구현
+- 인증/인가
+  - passport 없이
+    - [x] sessionId 이용 구현 - session 방식에서 유저 정보가 쿠키에 드러나는게 맞나 싶어 구현 중단 (session ID 를 DB에서 찾는것도 생각했는데 말이 안되는 비효율이라..)
+    - [x] bcrypt 적용
+    - [] jwt 토큰 방식
+  - passport 적용
+    - [] Local Strategy Auth 구현
+    - [] 카카오 Auth 구현
+- 리팩토링
+  - [] Error Handler Wrapper 추가
+  - [] TypeScript 적용
 
-- 2차 마일스톤 
-> - [] Nest.js 마이그레이션
-> - [] 전체 게시글 기능 추가
-> - [] 게시글 사진 업로드 추가
-> - [] 팔로우 기능 추가
-> - [] 
+<br/>
 
-### 문제 해결 과정
+---
 
-- [Delete 통신 시 발생하는 "Unexpected end of JSON input" 에러](https://chaedies-dev-log.tistory.com/entry/Reactjs-delete-fetch-%EC%8B%9C-Undexpected-end-of-JSON-input)
-- [gh-pages 배포 과정](https://chaedies-dev-log.tistory.com/entry/Reactjs-Github-Page%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EA%B0%9C%EC%9D%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B0%B0%ED%8F%AC)
+## 2차 마일스톤 (TBD)
 
-### 타입 스크립트 적용 과정
-
-- [Todo App 타입스크립트 마이그레이션 (1)](https://velog.io/@im_chaedong/typesto-do-app-%EC%97%90%EB%9F%AC-%EB%85%B8%ED%8A%B8-1)
-- [Todo App 타입스크립트 마이그레이션 (2)](https://velog.io/@im_chaedong/typesto-do-app-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0-%EA%B3%BC%EC%A0%95-2)
-- [Todo App 타입스크립트 마이그레이션 (3)](https://velog.io/@im_chaedong/typesto-do-app-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0-%EA%B3%BC%EC%A0%95-3)
-- [Todo App 타입스크립트 마이그레이션 (4)](https://velog.io/@im_chaedong/typesto-do-app-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0-%EA%B3%BC%EC%A0%95-4)
-
-### Axios 적용 과정
-
-- [Fetch => Axios 적용](https://chaedies-dev-log.tistory.com/entry/Reactjs-to-do-app-fetch-Axios-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EA%B3%BC%EC%A0%95)
+- [] Nest.js 마이그레이션
+- [] 전체 게시글 기능 추가
+- [] 게시글 사진 업로드 추가
+- [] 팔로우 기능 추가
