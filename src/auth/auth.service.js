@@ -1,5 +1,6 @@
 const AuthDao = require("./auth.dao");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const authDao = new AuthDao();
 class AuthService {
@@ -20,7 +21,7 @@ class AuthService {
     await authDao.createSession(email, sessionId);
   }
 
-  async postSignin(email, password, sessionId) {
+  async postSignin(email, password) {
     if (await !this.isExistUser(email)) {
       throw new Error("없는 이메일입니다.");
     }
@@ -32,9 +33,11 @@ class AuthService {
       throw new Error("이메일 패스워드 정보를 확인하세요");
     }
 
-    await authDao.createSession(email, sessionId);
+    const accessToken = jwt.sign({ email }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
-    return;
+    return accessToken;
   }
 }
 

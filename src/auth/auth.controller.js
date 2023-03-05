@@ -13,13 +13,12 @@ exports.postSignup = async (req, res, next) => {
 
 exports.postSignin = async (req, res, next) => {
   const { email, password } = req.body;
-  const sessionId = req.signedCookies["connect.sid"];
 
   if (!email || !password) {
     next("error: no body");
   }
 
-  await authService.postSignin(email, password, sessionId);
+  const accessToken = await authService.postSignin(email, password);
 
-  res.json({ message: "ok" });
+  res.json({ message: "ok", accessToken });
 };
