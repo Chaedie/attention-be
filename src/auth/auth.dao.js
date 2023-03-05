@@ -39,6 +39,19 @@ class AuthDao {
 
     return rows;
   }
+
+  async createSession(email, sessionId) {
+    const values = [email, sessionId];
+    const query = `
+      UPDATE public.users
+      SET session_id=$2
+      WHERE email=$1;
+    `;
+
+    const { rows } = await client.query(query, values);
+
+    return rows;
+  }
 }
 
 module.exports = AuthDao;

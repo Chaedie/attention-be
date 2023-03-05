@@ -17,7 +17,7 @@ class AuthService {
     return;
   }
 
-  async postSignin(email, password) {
+  async postSignin(email, password, sessionId) {
     if (!this.isExistUser(email)) {
       throw new Error("없는 이메일입니다.");
     }
@@ -26,6 +26,8 @@ class AuthService {
     if (user.length === 0) {
       throw new Error("유저 정보가 일치하지 않습니다.");
     }
+
+    await authDao.createSession(email, sessionId);
 
     return;
   }
