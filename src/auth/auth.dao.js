@@ -4,7 +4,7 @@ class AuthDao {
   async findOneUser(email) {
     const values = [email];
     const query = `
-      SELECT email
+      SELECT id, email, password
       FROM users
       WHERE email = $1
     `;

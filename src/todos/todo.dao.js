@@ -1,12 +1,13 @@
 const client = require("../../config/db");
 
-exports.getAllTodos = async (offset, pageSize) => {
-  const values = [offset, pageSize];
+exports.getAllTodos = async (userId, offset, pageSize) => {
+  const values = [userId, offset, pageSize];
   const query = `
     SELECT *
     FROM todos
-    OFFSET $1
-    LIMIT $2;
+    WHERE user_id = $1
+    OFFSET $2
+    LIMIT $3;
   `;
 
   const { rows } = await client.query(query, values);
@@ -14,12 +15,12 @@ exports.getAllTodos = async (offset, pageSize) => {
   return rows;
 };
 
-exports.createTodo = async todo => {
-  const values = [todo];
+exports.createTodo = async (userId, todo) => {
+  const values = [userId, todo];
   const query = `
     INSERT INTO todos
-    (todo, "isCompleted")
-    VALUES($1, false)
+    (todo, "isCompleted", user_id)
+    VALUES($2, false, $1)
     RETURNING id, todo, "isCompleted";
   `;
 

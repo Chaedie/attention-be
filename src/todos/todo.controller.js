@@ -2,13 +2,19 @@ const TodoService = require("./todo.service");
 const todoService = new TodoService();
 
 exports.getTodos = async (req, res, next) => {
-  const todos = await todoService.getTodos(req.query.page);
+  const { userId } = req.session.user;
+  const { page } = req.query;
+
+  const todos = await todoService.getTodos(userId, page);
 
   res.status(200).json(todos);
 };
 
 exports.createTodo = async (req, res, next) => {
-  const todoItem = await todoService.createTodo(req.body.todo);
+  const { userId } = req.session.user;
+  const { todo } = req.body;
+
+  const todoItem = await todoService.createTodo(userId, todo);
 
   res.status(201).json(todoItem);
 };

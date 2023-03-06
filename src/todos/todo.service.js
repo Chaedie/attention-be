@@ -1,16 +1,16 @@
 const { getAllTodos, createTodo, updateTodo, deleteTodo } = require("./todo.dao");
 
 class TodoService {
-  async getTodos(page) {
+  async getTodos(userId, page) {
     const pageSize = 10;
     const offset = (page - 1) * pageSize;
 
-    const todos = await getAllTodos(offset, pageSize);
+    const todos = await getAllTodos(userId, offset, pageSize);
     return todos;
   }
 
-  async createTodo(todo) {
-    const todoItem = await createTodo(todo);
+  async createTodo(userId, todo) {
+    const todoItem = await createTodo(userId, todo);
 
     return todoItem;
   }
