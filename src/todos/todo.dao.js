@@ -6,6 +6,7 @@ exports.getAllTodos = async (userId, offset, pageSize) => {
     SELECT *
     FROM todos
     WHERE user_id = $1
+    ORDER BY created_at
     OFFSET $2
     LIMIT $3;
   `;
