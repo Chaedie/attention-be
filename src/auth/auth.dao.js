@@ -1,5 +1,7 @@
 const client = require("../../config/db");
-
+const sanitizeHtml = require("sanitize-html");
+const csrf = require("csurf");
+const csrfProtection = csrf({ cookie: true });
 class AuthDao {
   async findOneUser(email) {
     const values = [email];

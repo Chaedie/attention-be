@@ -1,4 +1,7 @@
 const client = require("../../config/db");
+const sanitizeHtml = require("sanitize-html");
+const csrf = require("csurf");
+const csrfProtection = csrf({ cookie: true });
 
 exports.getAllTodos = async (user_id, offset, pageSize) => {
   const values = [user_id, offset, pageSize];
@@ -9,7 +12,7 @@ exports.getAllTodos = async (user_id, offset, pageSize) => {
     ORDER BY created_at
     OFFSET $2
     LIMIT $3;
-  `;
+  `; 
 
   const { rows } = await client.query(query, values);
 

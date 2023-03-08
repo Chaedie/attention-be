@@ -1,4 +1,8 @@
 const client = require("../../config/db");
+const sanitizeHtml = require("sanitize-html");
+const csrf = require("csurf");
+const logger = require("../../config/logger");
+const csrfProtection = csrf({ cookie: true });
 
 class CommentDao {
   async findComments({ todo_id }) {
@@ -22,7 +26,6 @@ class CommentDao {
     VALUES($1, $2, $3)
     RETURNING id as comment_id, comment, user_id, todo_id;
   `;
-    console.log("들어옴");
 
     const { rows } = await client.query(query, values);
 

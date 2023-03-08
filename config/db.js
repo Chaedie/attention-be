@@ -1,4 +1,5 @@
 const pg = require("pg");
+const logger = require("./logger");
 const client = new pg.Pool({
   user: "postgres",
   host: "localhost",
@@ -10,9 +11,9 @@ const client = new pg.Pool({
 
 client.connect(err => {
   if (err) {
-    console.error("db connection error", err.stack);
+    logger.error("db connection error", err.stack);
   } else {
-    console.log("db connection success");
+    logger.info("db connection success");
   }
 });
 

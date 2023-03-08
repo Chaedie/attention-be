@@ -1,7 +1,9 @@
+const logger = require("../../config/logger");
+
 exports.errorHandlerWrapper = controller => {
   return (req, res, next) => {
     controller(req, res, next).catch(err => {
-      console.error(err);
+      logger.error(err);
       next(err);
     });
   };

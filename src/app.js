@@ -1,5 +1,10 @@
 const app = require("../config/routes");
-const PORT = 30003;
+const PORT = process.env.PORT;
 const client = require("../config/db");
+const logger = require("../config/logger");
 
-app.listen(PORT, () => console.log(`server is on ${PORT}`));
+
+
+app.listen(PORT, () => {
+  logger.info(`server is on ${PORT}`);
+});
