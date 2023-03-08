@@ -34,11 +34,11 @@ class AuthService {
       throw new Error("이메일 패스워드 정보를 확인하세요");
     }
 
-    const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+    const accessToken = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
-    return { accessToken, userId: user.id };
+    return { accessToken, user_id: user.id };
   }
 }
 

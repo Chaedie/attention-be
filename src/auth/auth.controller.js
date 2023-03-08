@@ -18,8 +18,8 @@ exports.postSignin = async (req, res, next) => {
     next("error: no body");
   }
 
-  const { accessToken, userId } = await authService.postSignin(email, password);
-  req.session.user = { userId };
+  const { accessToken, user_id } = await authService.postSignin(email, password);
+  req.session.user = { user_id };
 
   res.json({ message: "ok", accessToken });
 };

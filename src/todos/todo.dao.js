@@ -1,7 +1,7 @@
 const client = require("../../config/db");
 
-exports.getAllTodos = async (userId, offset, pageSize) => {
-  const values = [userId, offset, pageSize];
+exports.getAllTodos = async (user_id, offset, pageSize) => {
+  const values = [user_id, offset, pageSize];
   const query = `
     SELECT *
     FROM todos
@@ -16,8 +16,8 @@ exports.getAllTodos = async (userId, offset, pageSize) => {
   return rows;
 };
 
-exports.createTodo = async (userId, todo) => {
-  const values = [userId, todo];
+exports.createTodo = async (user_id, todo) => {
+  const values = [user_id, todo];
   const query = `
     INSERT INTO todos
     (todo, "isCompleted", user_id)
@@ -45,8 +45,8 @@ exports.updateTodo = async (id, todo, isCompleted) => {
   return rows[0];
 };
 
-exports.deleteTodo = async id => {
-  const values = [id];
+exports.deleteTodo = async todo_id => {
+  const values = [todo_id];
 
   const query = `
   DELETE FROM public.todos
