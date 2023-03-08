@@ -2,9 +2,11 @@ const app = require("./express");
 
 const { todosRouter } = require("../src/todos/todo.route");
 const { authRouter } = require("../src/auth/auth.route");
+const { commentsRouter } = require("../src/comments/comment.route");
 
 app.use("/todos", todosRouter);
 app.use("/auth", authRouter);
+app.use("/comments", commentsRouter);
 
 app.use("*", (req, res, next) => {
   res.send("404 Not Found");
