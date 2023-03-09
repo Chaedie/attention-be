@@ -32,7 +32,10 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.use(morgan("dev"));
 }
-// Redis 설정
+//
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+// Redis 설정 - redisClient
 const Redis = require("redis");
 const { errorHandlerWrapper } = require("../src/middlewares/errorhandler");
 const redisClient = new Redis.createClient({
@@ -45,11 +48,12 @@ const redisClient = new Redis.createClient({
 });
 redisClient.connect().then().catch(console.error);
 
-//
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-//
+// Redis 설정 - redisStore
+const RedisStore = require("connect-redis")(session);
+const redisStore = new RedisStore({
+  client: redisClient,
+});
+// Session 설정
 app.use(cookieParser(process.env.REDIS_PASSWORD));
 const sessionOption = {
   resave: false,
@@ -59,7 +63,7 @@ const sessionOption = {
     httpOnly: true,
     secure: false,
   },
-  // store: redisStore,
+  store: redisStore,
 };
 if (process.env.NODE_ENV === "production") {
   sessionOption.proxy = true; // nginx 사용할 떄 true가 필요하다.
@@ -67,14 +71,17 @@ if (process.env.NODE_ENV === "production") {
   // sessionOption.cookie.secure = true; // https 적용하면 필요
 }
 app.use(session(sessionOption));
+//
 
+// TODO: 없애야됨 Redis Check Controller
 async function redisCheckFunction(req, res) {
-  redisClient.get("test", async (err, data) => {
+  console.log(req.session);
+  redisClient.get("sess:test", async (err, data) => {
     if (err) console.error(err);
     if (data) {
       res.json(data);
     } else {
-      redisClient.set("test", "goooooooood!!!!");
+      redisClient.set("sess:test", "goooooooood!!!!");
     }
   });
 }
