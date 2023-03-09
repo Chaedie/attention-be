@@ -3,29 +3,29 @@ const sanitizeHtml = require("sanitize-html");
 const csrf = require("csurf");
 const csrfProtection = csrf({ cookie: true });
 
-exports.getAllTodos = async (user_id, offset, pageSize) => {
+exports.getAllPosts = async ({ user_id, offset, pageSize }) => {
   const values = [user_id, offset, pageSize];
   const query = `
     SELECT *
-    FROM todos
+    FROM posts
     WHERE user_id = $1
     ORDER BY created_at
     OFFSET $2
     LIMIT $3;
-  `; 
+  `;
 
   const { rows } = await client.query(query, values);
 
   return rows;
 };
 
-exports.createTodo = async (user_id, todo) => {
-  const values = [user_id, todo];
+exports.createPost = async ({ user_id, title, content }) => {
+  const values = [user_id, title, content];
   const query = `
-    INSERT INTO todos
-    (todo, "isCompleted", user_id)
-    VALUES($2, false, $1)
-    RETURNING id, todo, "isCompleted";
+    INSERT INTO posts
+    (user_id, title, content)
+    VALUES($1, $2, $3)
+    RETURNING id, title, content;
   `;
 
   const { rows } = await client.query(query, values);
@@ -33,14 +33,14 @@ exports.createTodo = async (user_id, todo) => {
   return rows[0];
 };
 
-exports.updateTodo = async (id, todo, isCompleted) => {
-  const values = [id, todo, isCompleted || "false"];
+exports.updatePost = async ({ post_id, title, content }) => {
+  const values = [post_id, title, content];
 
   const query = `
-    UPDATE public.todos
-    SET todo=$2, "isCompleted"=$3
+    UPDATE public.posts
+    SET title=$2, content=$3
     WHERE id=$1
-    RETURNING id, todo, "isCompleted";
+    RETURNING id, title, content;
   `;
 
   const { rows } = await client.query(query, values);
@@ -48,11 +48,11 @@ exports.updateTodo = async (id, todo, isCompleted) => {
   return rows[0];
 };
 
-exports.deleteTodo = async todo_id => {
-  const values = [todo_id];
+exports.deletePost = async post_id => {
+  const values = [post_id];
 
   const query = `
-  DELETE FROM public.todos
+  DELETE FROM public.posts
   WHERE id=$1;
   `;
 

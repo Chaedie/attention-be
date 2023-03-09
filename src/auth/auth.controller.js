@@ -3,6 +3,7 @@ const authService = new AuthService();
 
 exports.postSignup = async (req, res, next) => {
   const { email, password } = req.body;
+
   if (!email || !password) {
     next("error: no body");
   }

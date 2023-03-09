@@ -20,7 +20,7 @@ class AuthDao {
     const values = [email, password];
     const query = `
       INSERT INTO public.users
-      (email, "password", session_id)
+      (email, password, name)
       VALUES($1, $2, null);
     `;
 

@@ -18,7 +18,6 @@ class AuthService {
     const hash = await bcrypt.hash(password, 10);
 
     await authDao.createUser(email, hash);
-    await authDao.createSession(email, sessionId);
   }
 
   async postSignin(email, password) {
