@@ -22,11 +22,12 @@ const redis = require("redis");
 const RedisStore = require("connect-redis").default;
 
 const redisClient = redis.createClient({
-  url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
   password: process.env.REDIS_PASSWORD,
   legacyMode: true,
 });
-redisClient.connect().catch(logger.error);
+redisClient.connect().catch(err => logger.error("redis Error입니다." + err));
 
 if (process.env.NODE_ENV === "production") {
   app.enable("trust proxy");
