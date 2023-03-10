@@ -21,12 +21,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16
-      - name: 프로젝트 디펜던시 설치
-        run: yarn
-      - name: 프로젝트 빌드하기
-        run: yarn build
-      - name: 빌드 파일 생성 체크
-        run: ls -la
+      # - name: 프로젝트 디펜던시 설치
+        # run: yarn
+      # - name: 프로젝트 빌드하기
+        # run: yarn build
+      # - name: 빌드 파일 생성 체크
+        # run: ls -la
+      - name: 디펜던시 설치
+        run: npm ci
       - name: AWS 인증하기
         uses: aws-actions/configure-aws-credentials@v1
         with:
