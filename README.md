@@ -52,7 +52,8 @@ src
     - [x] sessionId 이용 구현 - session 방식에서 유저 정보가 쿠키에 드러나는게 맞나 싶어 구현 중단 (session ID 를 DB에서 찾는것도 생각했는데 말이 안되는 비효율이라..)
     - [x] bcrypt 적용
     - [x] jwt 토큰 방식
-    - [ ] session 대신 Redis memory db 사용
+    - [x] session 대신 Redis memory db 사용
+    - [ ] 배포환경에서 Session 이용하기.. 
     - [ ] front firebase google login 연동
   - passport 적용
     - [ ] Local Strategy Auth 구현
@@ -63,6 +64,8 @@ src
   - [ ] Error 핸들링 추가
 - 테스트 코드
   - [ ] 테스트 코드 적용
+- 기타
+  - [ ] C/ICD 추가
 
 <br/>
 

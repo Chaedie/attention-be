@@ -5,8 +5,6 @@ on:
     branches: ['main', feature/github-actions]
   pull_request:
     branches: ['main']
-  merge:
-    branches: ['main']
 env:
   LIGHTSAIL_SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
   LIGHTSAIL_HOST: ${{ secrets.LIGHTSAIL_HOST }}
@@ -23,15 +21,18 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16
-      - name: 프로젝트 디펜던시 설치
-        run: yarn
-      - name: 프로젝트 빌드하기
-        run: yarn build
-      - name: 빌드 파일 생성 체크
-        run: ls -la
+      # - name: 프로젝트 디펜던시 설치
+        # run: yarn
+      # - name: 프로젝트 빌드하기
+        # run: yarn build
+      # - name: 빌드 파일 생성 체크
+        # run: ls -la
+      - name: 디펜던시 설치
+        run: npm ci
       - name: AWS 인증하기
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
+          role-to-assume: arn:aws:iam::123456789100:role/my-github-actions-role
           aws-region: ${{ env.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
