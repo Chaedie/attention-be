@@ -2,10 +2,11 @@ name: CI CD
 
 on:
   push:
-    branches: ['main']
+    branches: ['main', feature/github-actions]
   pull_request:
     branches: ['main']
-
+  merge:
+    branches: ['main']
 env:
   LIGHTSAIL_SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
   LIGHTSAIL_HOST: ${{ secrets.LIGHTSAIL_HOST }}
