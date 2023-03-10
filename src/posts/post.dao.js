@@ -17,7 +17,7 @@ exports.getAllPosts = async ({ user_id, offset, pageSize }) => {
   const query = `
     SELECT *
     FROM posts
-    ORDER BY created_at
+    ORDER BY created_at DESC
     OFFSET $1
     LIMIT $2;
   `;
