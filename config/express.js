@@ -10,7 +10,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const cors = require("cors");
-const logger = require("./logger");
+
 app.use(
   cors({
     origin: true,
@@ -52,6 +52,8 @@ redisClient.connect().then().catch(console.error);
 const RedisStore = require("connect-redis")(session);
 const redisStore = new RedisStore({
   client: redisClient,
+  prefix: "redis:",
+  ttl: 1 * 60 * 60,
 });
 // Session 설정
 app.use(cookieParser(process.env.REDIS_PASSWORD));
@@ -67,7 +69,6 @@ const sessionOption = {
 };
 if (process.env.NODE_ENV === "production") {
   sessionOption.proxy = true; // nginx 사용할 떄 true가 필요하다.
-
   // sessionOption.cookie.secure = true; // https 적용하면 필요
 }
 app.use(session(sessionOption));
@@ -76,12 +77,12 @@ app.use(session(sessionOption));
 // TODO: 없애야됨 Redis Check Controller
 async function redisCheckFunction(req, res) {
   console.log(req.session);
-  redisClient.get("sess:test", async (err, data) => {
+  redisClient.get("redis:test", async (err, data) => {
     if (err) console.error(err);
     if (data) {
       res.json(data);
     } else {
-      redisClient.set("sess:test", "goooooooood!!!!");
+      redisClient.set("redis:test", "goooooooood!!!!");
     }
   });
 }

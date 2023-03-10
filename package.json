@@ -2,11 +2,11 @@
   "name": "todo-express",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/app.js",
+  "main": "./app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
-    "start": "NODE_ENV=production PORT=80 sudo pm2 start src/app.js"
+    "start": "NODE_ENV=production PORT=80 sudo pm2 start app.js"
   },
   "keywords": [],
   "author": "",
@@ -45,6 +45,10 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.4"
   }
 }

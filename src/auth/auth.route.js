@@ -1,7 +1,7 @@
 const express = require("express");
 const { postSignin, postSignup } = require("./auth.controller");
 const { errorHandlerWrapper } = require("../middlewares/errorhandler");
-const { userCheck } = require("../middlewares/userCheck");
+const { userCheck } = require("../middlewares/checks");
 
 const router = express.Router();
 
