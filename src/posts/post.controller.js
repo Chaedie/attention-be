@@ -40,10 +40,7 @@ exports.deletePost = async (req, res, next) => {
 };
 
 exports.getTodaysPost = async (req, res, next) => {
-  const posts = await postService.getPosts({
-    page: 1,
-    pageSize: 1,
-  });
+  const post = await postService.getTodaysPost();
 
-  res.status(200).json(posts[0]);
+  res.status(200).json(post);
 };

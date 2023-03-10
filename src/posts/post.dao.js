@@ -24,7 +24,18 @@ exports.getAllPosts = async ({ user_id, offset, pageSize }) => {
 
   const { rows } = await client.query(query, values);
 
-  console.log(rows);
+  return rows;
+};
+
+exports.getPostCount = async () => {
+  const values = [];
+  const query = `
+    SELECT count(*) as post_count
+    FROM posts
+  `;
+
+  const { rows } = await client.query(query, values);
+
   return rows;
 };
 
