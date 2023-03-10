@@ -2,7 +2,7 @@ const PostService = require("./post.service");
 const postService = new PostService();
 
 exports.getPosts = async (req, res, next) => {
-  const { user_id } = req.session.user;
+  // const { user_id } = req.session.user;
   const { page } = req.query;
 
   const posts = await postService.getPosts({ user_id, page });
@@ -11,7 +11,7 @@ exports.getPosts = async (req, res, next) => {
 };
 
 exports.createPost = async (req, res, next) => {
-  const { user_id } = req.session.user;
+  // const { user_id } = req.session.user;
   const { title, content } = req.body;
 
   const postItem = await postService.createPost({ user_id, title, content });

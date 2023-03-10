@@ -4,11 +4,12 @@ const csrf = require("csurf");
 const csrfProtection = csrf({ cookie: true });
 
 exports.getAllPosts = async ({ user_id, offset, pageSize }) => {
-  const values = [user_id, offset, pageSize];
+  // const values = [user_id, offset, pageSize];
+  const values = [offset, pageSize];
   const query = `
     SELECT *
     FROM posts
-    WHERE user_id = $1
+
     ORDER BY created_at
     OFFSET $2
     LIMIT $3;
@@ -20,11 +21,18 @@ exports.getAllPosts = async ({ user_id, offset, pageSize }) => {
 };
 
 exports.createPost = async ({ user_id, title, content }) => {
-  const values = [user_id, title, content];
+  // const values = [user_id, title, content];
+  // const query = `
+  //   INSERT INTO posts
+  //   (user_id, title, content)
+  //   VALUES($1, $2, $3)
+  //   RETURNING id, title, content;
+  // `;
+  const values = [title, content];
   const query = `
     INSERT INTO posts
     (user_id, title, content)
-    VALUES($1, $2, $3)
+    VALUES(1, $2, $3)
     RETURNING id, title, content;
   `;
 

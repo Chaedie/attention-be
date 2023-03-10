@@ -11,7 +11,7 @@ class CommentController {
   async postComment(req, res, next) {
     const { id: post_id } = req.params;
     const { comment } = req.body;
-    const { user_id } = req.session.user;
+    // const { user_id } = req.session.user;
 
     const createdComment = await commentService.postComments({ comment, user_id, post_id });
 
