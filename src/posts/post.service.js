@@ -1,8 +1,9 @@
 const { getAllPosts, createPost, updatePost, deletePost } = require("./post.dao");
 
 class PostService {
-  async getPosts({ user_id, page }) {
-    const pageSize = 10;
+  async getPosts({ user_id, page, pageSize }) {
+    console.log("page, pageSize", page, pageSize);
+
     const offset = (page - 1) * pageSize;
 
     const todos = await getAllPosts({ user_id, offset, pageSize });

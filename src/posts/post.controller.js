@@ -3,10 +3,13 @@ const postService = new PostService();
 
 exports.getPosts = async (req, res, next) => {
   // const { user_id } = req.session.user;
-  const { page } = req.query;
 
+  // console.log("page, pageSize", page, pageSize);
   // const posts = await postService.getPosts({ user_id, page });
-  const posts = await postService.getPosts({ page });
+  const posts = await postService.getPosts({
+    page: req.query?.page || 1,
+    pageSize: req.query?.pageSize || 10,
+  });
 
   res.status(200).json(posts);
 };
