@@ -38,3 +38,9 @@ exports.deletePost = async (req, res, next) => {
 
   res.status(204).json({ message: "delete Post" });
 };
+
+exports.getTodaysPost = async (req, res, next) => {
+  const post = await postService.getTodaysPost();
+
+  res.status(200).json(post);
+};
