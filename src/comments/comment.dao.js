@@ -19,11 +19,18 @@ class CommentDao {
   }
 
   async createComment({ comment, user_id, post_id }) {
+    //   const values = [comment, user_id, post_id];
+    //   const query = `
+    //   INSERT INTO comments
+    //   (comment, user_id, post_id)
+    //   VALUES($1, $2, $3)
+    //   RETURNING id as comment_id, comment, user_id, post_id;
+    // `;
     const values = [comment, user_id, post_id];
     const query = `
     INSERT INTO comments
     (comment, user_id, post_id)
-    VALUES($1, $2, $3)
+    VALUES($1, 1, $3)
     RETURNING id as comment_id, comment, user_id, post_id;
   `;
 
