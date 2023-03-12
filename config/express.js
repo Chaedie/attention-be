@@ -38,6 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 // Redis 설정 - redisClient
 const Redis = require("redis");
 const { errorHandlerWrapper } = require("../src/middlewares/errorhandler");
+const passport = require("passport");
 const redisClient = new Redis.createClient({
   password: process.env.REDIS_PASSWORD,
   socket: {
@@ -72,6 +73,10 @@ if (process.env.NODE_ENV === "production") {
   // sessionOption.cookie.secure = true; // https 적용하면 필요
 }
 app.use(session(sessionOption));
+const passportConfig = require("../passport");
+passportConfig();
+app.use(passport.session());
+
 //
 
 // TODO: 없애야됨 Redis Check Controller
@@ -88,4 +93,5 @@ async function redisCheckFunction(req, res) {
 }
 
 app.get("/redis-check", errorHandlerWrapper(redisCheckFunction));
+
 module.exports = app;
