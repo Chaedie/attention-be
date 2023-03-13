@@ -11,8 +11,8 @@ exports.serverCheck = async (req, res) => {
 };
 
 exports.userCheck = (req, res) => {
-  if (req.session.user) {
-    res.json({ isLogin: true, user: req.session.user });
+  if (req.user) {
+    res.json({ isLogin: true, user: req.user });
   } else {
     res.json({ isLogin: false });
   }

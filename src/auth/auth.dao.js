@@ -13,7 +13,20 @@ class AuthDao {
 
     const { rows } = await client.query(query, values);
 
-    return rows;
+    return rows[0];
+  }
+
+  async findOneById({ userId }) {
+    const values = [userId];
+    const query = `
+      SELECT id, email, password
+      FROM users
+      WHERE id = $1
+    `;
+
+    const { rows } = await client.query(query, values);
+
+    return rows[0];
   }
 
   async createUser(email, password) {

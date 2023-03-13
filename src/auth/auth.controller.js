@@ -1,6 +1,8 @@
+const passport = require("passport");
 const errors = require("../../errors");
 const AuthService = require("./auth.service");
 const authService = new AuthService();
+const jwt = require("jsonwebtoken");
 
 exports.postSignup = async (req, res, next) => {
   const { email, password } = req.body;
@@ -13,15 +15,10 @@ exports.postSignup = async (req, res, next) => {
   res.json({ message: "ok" });
 };
 
-exports.postSignin = async (req, res, next) => {
-  const { email, password } = req.body;
+exports.login = async (req, res, next) => {
+  const accessToken = jwt.sign({ user_id: req.user.id }, process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
 
-  if (!email || !password) {
-    next(errors.notFound("email, password를 채워주세요."));
-  }
-
-  const { accessToken, user_id } = await authService.postSignin(email, password);
-  req.session.user = { user_id };
-
-  res.json({ message: "ok", accessToken });
+  return res.status(200).json({ message: "login success", accessToken });
 };
